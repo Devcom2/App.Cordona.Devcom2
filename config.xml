@@ -12,7 +12,8 @@
   <preference name="Fullscreen" value="true" />
  <!-- Define app icon MAIN ROOT Platform. -->
 
-	<icon src="images/Logo.png" />
+	<icon src="images/appicon.png" />
+	<gap:splash src="images/default.png" />
 
   <vs:features>
     <vs:feature>org.apache.cordova.splashscreen@0.3.1</vs:feature>
