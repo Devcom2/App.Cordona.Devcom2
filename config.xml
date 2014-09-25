@@ -10,6 +10,12 @@
   <content src="index.html" />
   <access origin="*" />
   <preference name="Fullscreen" value="true" />
+  <icon src="images/Logo.png" gap:platform="android" gap:density="ldpi" />
+	<icon src="images/Logo.png" gap:platform="android" gap:density="mdpi" />
+	<icon src="images/Logo.png" gap:platform="android" gap:density="hdpi" />
+	<icon src="images/Logo.png" gap:platform="android" gap:density="xhdpi" />
+	<icon src="images/Logo.png" gap:platform="android" gap:density="xxhdpi" />
+
   <vs:features>
     <vs:feature>org.apache.cordova.splashscreen@0.3.1</vs:feature>
     <vs:feature>org.apache.cordova.vibration@0.3.9</vs:feature>
