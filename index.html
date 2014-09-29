@@ -7,17 +7,11 @@
         <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
         <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
         <script type="text/javascript" src="js/jquery.js"></script>
-        <script type="text/javascript" src="js/login.js"></script>
-        <script type="text/javascript" src="js/Chart.js"></script>
+        <!--<script type="text/javascript" src="js/login.js"></script>-->
+        <!--<script type="text/javascript" src="js/Chart.js"></script>-->
+        <script src="https://code.jquery.com/jquery-git2.min.js"></script>
         <script type="text/javascript" src="js/jquery.easing.js"></script>
         <script type="text/javascript" src="js/jquery.ulslide.js"></script>
-        <!----Calender -------->
-        <link rel="stylesheet" href="css/clndr.css" type="text/css" />
-        <script src="js/underscore-min.js"></script>
-        <script src= "js/moment-2.2.1.js"></script>
-        <script src="js/clndr.js"></script>
-        <script src="js/site.js"></script>
-        <!----End Calender -------->
         <link type="text/css" href="css/mmenu.css" rel="stylesheet" media="all" />
         <script type="text/javascript" src="js/jquery.mmenu.min.js"></script>
         <script type="text/javascript">
@@ -44,18 +38,22 @@
                                 <h3>Sign in to your account</h3>
                                 <form>
                                     <span>
-                                        <i><img src="images/mail.png" alt="" /></i><input type="text" value="Enter your email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your email';}">
+                                        <i><img src="images/mail.png" alt="" /></i>
+                                        <input type="text" value="Enter your email" 
+                                               onfocus="this.value = '';" 
+                                               onblur="if (this.value == '') {this.value = 'Enter your email';}"
+                                               id="txtUserName" name="txtUserName">
                                     </span>
                                     <span>
                                         <i><img src="images/lock.png" alt="" /></i>
-                                        <input type="password" placeholder="password">
+                                        <input type="password" placeholder="password" id="txtPassword" name="txtPassword">
                                     </span>
-                                    <input type="submit" class="my-button"  value="Sign In">
+                                    <input type="button" class="my-button" onclick="SignIn()" value="Sign In">
                                 </form>
                                 <h4><a href="#">Forget Password?</a></h4>
                             </div>
                             <div class="signin_facebook">
-                                <p><a href="#">No account yet?</a></p>
+                                <p><a>No account yet?</a></p>
                             </div>
                         </div>
                     </div>
@@ -74,7 +72,14 @@
                 <li><a href="#"><i><img src="images/settings.png" alt="" /></i>Settings</a></li>
             </ul>
         </nav>
-
+        <script>
+        </script>
+        <script src="http://devcom2.api.mymobileapp.be/scripts/testing.js"></script>
+        <script>
+            function SignIn() {
+                alert(test(2, 3));
+            }
+        </script>
     </body>
 </html>
 
