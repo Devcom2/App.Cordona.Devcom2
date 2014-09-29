@@ -1,5 +1,4 @@
-﻿<!--<!DOCTYPE HTML>-->
-<html>
+﻿<html>
     <head>
         <title>Ui kits for Iphone, Android and Smartphone Website Templates | Home :: w3layouts</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -14,6 +13,7 @@
         <script type="text/javascript" src="js/jquery.ulslide.js"></script>
         <link type="text/css" href="css/mmenu.css" rel="stylesheet" media="all" />
         <script type="text/javascript" src="js/jquery.mmenu.min.js"></script>
+        <script src="http://localhost:1200/scripts/users.js"></script>
         <script type="text/javascript">
             $(function() {
                 $('nav#menu').mmenu();
@@ -36,7 +36,7 @@
                                     </div>
                                 </div>
                                 <h3>Sign in to your account</h3>
-                                <form>
+                               <!-- <form>  -->
                                     <span>
                                         <i><img src="images/mail.png" alt="" /></i>
                                         <input type="text" value="Enter your email" 
@@ -45,11 +45,11 @@
                                                id="txtUserName" name="txtUserName">
                                     </span>
                                     <span>
-                                        <i><img src="images/lock.png" alt="" /></i>
-                                        <input type="password" placeholder="password" id="txtPassword" name="txtPassword">
+                                        <i><img src="images/lock.png" alt="" /></i><!--placeholder="password"-->
+                                        <input type="password"  id="txtPassword" name="txtPassword">
                                     </span>
-                                    <input type="button" class="my-button" onclick="SignIn()" value="Sign In">
-                                </form>
+                                    <input type="submit" id="btnLogin" class="my-button" value="Sign In">
+                                <!--</form>-->
                                 <h4><a href="#">Forget Password?</a></h4>
                             </div>
                             <div class="signin_facebook">
@@ -73,12 +73,15 @@
             </ul>
         </nav>
         <script>
-        </script>
-        <script src="http://devcom2.api.mymobileapp.be/scripts/testing.js"></script>
-        <script>
-            function SignIn() {
-                alert(test(2, 3));
-            }
+            $("#btnLogin").click(function () {
+                $.get(
+                    "http://xyz.com/webservice.pl",
+                    { q: "google" },
+                    function (data) {
+                        alert(data);  // "google.com"
+                    }
+                );
+            });
         </script>
     </body>
 </html>
