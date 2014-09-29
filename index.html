@@ -75,8 +75,8 @@
         <script>
             $("#btnLogin").click(function () {
                 var parameters = {};
-                parameters["UserName"] = UserName;
-                parameters["Password"] = Password;
+                parameters["UserName"] = $("#txtUserName").val();
+                parameters["Password"] = $("#txtPassword").val();
 
                 $.ajax({
                     url: "http://devcom2.api.mymobileapp.be/User/LogIn",
