@@ -74,13 +74,21 @@
         </nav>
         <script>
             $("#btnLogin").click(function () {
-                $.get(
-                    "http://xyz.com/webservice.pl",
-                    { q: "google" },
-                    function (data) {
-                        alert(data);  // "google.com"
+                var parameters = {};
+                parameters["UserName"] = UserName;
+                parameters["Password"] = Password;
+
+                $.ajax({
+                    url: "http://devcom2.api.mymobileapp.be/User/LogIn",
+                    data: parameters,
+                    type: 'POST',
+                    success: function (data) {
+                        return "test";
+                    },
+                    error: function (data) {
+                        return "error";
                     }
-                );
+                });
             });
         </script>
     </body>
