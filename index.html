@@ -48,7 +48,7 @@
                                         <i><img src="images/lock.png" alt="" /></i><!--placeholder="password"-->
                                         <input type="password"  id="txtPassword" name="txtPassword">
                                     </span>
-                                    <input type="submit" id="btnLogin" class="my-button" value="Sign In">
+                                    <input type="submit" id="btnLogin" class="my-button" value="Sign In" onclick="sendRequest()">
                                 <!--</form>-->
                                 <h4><a href="#">Forget Password?</a></h4>
                             </div>
@@ -72,25 +72,57 @@
                 <li><a href="#"><i><img src="images/settings.png" alt="" /></i>Settings</a></li>
             </ul>
         </nav>
+        <!--<script type="text/javascript" src="js/jquery.mobile-1.4.4.min.js"></script>
         <script>
-            $("#btnLogin").click(function () {
-                var parameters = {};
-                parameters["UserName"] = $("#txtUserName").val();
-                parameters["Password"] = $("#txtPassword").val();
+            $.support.cors = true;
+            $.mobile.allowCrossDomainPages = true;
+            $(document).ready(function () {
+                //$("#btnLogin").click(function () {
+                //    $.mobile.allowCrossDomainPages = true
+                    $.support.cors = true;
 
+                    var parameters = {};
+                    parameters["UserName"] = $("#txtUserName").val();
+                    parameters["Password"] = $("#txtPassword").val();
+
+                    $.ajax({
+                        //url: "http://devcom2.api.mymobileapp.be/User/LogIn",
+                        url: "http://localhost:1200/User/LogIn",
+                        data: parameters,
+                        type: 'POST',
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function (data) {
+                            return "test";
+                        },
+                        error: function (data) {
+                            return "error";
+                        }
+                    });
+                //});
+
+            })
+        </script>-->
+        <script>
+            // TODO: Replace with the URL of your WebService app
+            
+           
+           
+            function sendRequest() {
+                var pass = $("#txtPassword").val();
+                var serviceUrl = 'http://devcom2.api.mymobileapp.be/api/User?UserName=' + $("#txtUserName").val() + '&Password=' + $("#txtPassword").val() + '&return=json';
                 $.ajax({
-                    url: "http://devcom2.api.mymobileapp.be/User/LogIn",
-                    data: parameters,
-                    type: 'POST',
-                    success: function (data) {
-                        return "test";
-                    },
-                    error: function (data) {
-                        return "error";
-                    }
+                    type: "POST",
+                    url: serviceUrl
+                }).done(function (data) {
+                    alert(data);
+                }).error(function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText || textStatus);
                 });
-            });
+            }
         </script>
+
     </body>
 </html>
 
