@@ -30,8 +30,8 @@
     Domains are assumed blocked unless set otherwise
      -->
 
-  <access uri="http://devcom2.api.mymobileapp.be" subdomains="true" />
+  <access origin="http://devcom2.api.mymobileapp.be" subdomains="true" />
   
 </cordova>
-  <access uri="http://devcom2.api.mymobileapp.be" subdomains="true" />
+  <access origin="http://devcom2.api.mymobileapp.be" subdomains="true" />
 </widget>
