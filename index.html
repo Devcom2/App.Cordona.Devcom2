@@ -80,20 +80,19 @@
                     url: serviceUrl
                 }).done(function (data) {
                     if (data == "WRONG_CREDENTIALS") {
+                        alert("Cannot find this user.")
                     }
                     else if (data == "NOT_CONFIRMED")
                     {
-
+                        alert("This account is not authorized. Please contact our support.")
                     }
                     else if (data == "NO_SUCH_USER") {
-
+                        alert("Cannot find this user.")
                     }
                     else {
                         localStorage.setItem("Session", data);
-                        alert(localStorage.getItem("Session"));
                         window.location = "hosting_home.html";
                     }
-                    alert(data);
                 }).error(function (jqXHR, textStatus, errorThrown) {
                     alert(jqXHR.responseText || textStatus);
                 });
