@@ -13,7 +13,6 @@
         <script type="text/javascript" src="js/jquery.ulslide.js"></script>
         <link type="text/css" href="css/mmenu.css" rel="stylesheet" media="all" />
         <script type="text/javascript" src="js/jquery.mmenu.min.js"></script>
-        <script src="http://localhost:1200/scripts/users.js"></script>
         <script type="text/javascript">
             $(function() {
                 $('nav#menu').mmenu();
@@ -75,18 +74,23 @@
         <script>     
             function sendRequest() {
                 var pass = $("#txtPassword").val();
-                var serviceUrl = 'http://devcom2.api.mymobileapp.be/api/User?UserName=' + $("#txtUserName").val() + '&Password=' + $("#txtPassword").val() + '&return=json';
+                var serviceUrl = 'http://localhost:1200/api/User?UserName=' + $("#txtUserName").val() + '&Password=' + $("#txtPassword").val() + '&return=json';
                 $.ajax({
                     type: "POST",
                     url: serviceUrl
                 }).done(function (data) {
-                    if (data == "") {
+                    if (data == "WRONG_CREDENTIALS") {
                     }
-                    else if (data == "OTHER")
+                    else if (data == "NOT_CONFIRMED")
                     {
 
                     }
+                    else if (data == "NO_SUCH_USER") {
+
+                    }
                     else {
+                        localStorage.setItem("Session", data);
+                        alert(localStorage.getItem("Session"));
                         window.location = "hosting_home.html";
                     }
                     alert(data);
