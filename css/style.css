@@ -756,6 +756,35 @@ fieldset#body {
 	padding:20px;
     max-width: calc(100%-100px);
 }
+/*HOSTING*/
+.social_networks li a.bindings{
+	background:#386FBA;
+}
+.social_networks li a.subdomains{
+	background:#4A8DE8;
+}
+.social_networks li a.ftp{
+	background:#2C72D1;
+}
+.social_networks li a.bindings:hover{
+	background:#386FBA;
+}
+.social_networks li a.subdomains:hover{
+	background:#4A8DE8;
+}
+.social_networks li a.ftp:hover{
+	background:#2C72D1;
+}
+
+.social_networks li a.facebook:hover{
+	background:#0D4797;
+}
+.social_networks li a.facebook{
+	background:#3468af;
+}
+.social_networks li a.facebook:hover{
+	background:#0D4797;
+}
 .social_networks li a.facebook{
 	background:#3468af;
 }

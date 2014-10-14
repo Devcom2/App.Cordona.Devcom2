@@ -22,12 +22,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script src="js/moment-2.2.1.js"></script>
     <script src="js/clndr.js"></script>
     <script src="js/site.js"></script>
+    <script src="js/special.js"></script>
     <!----End Calender -------->
     <link type="text/css" href="css/mmenu.css" rel="stylesheet" media="all" />
+    <link type="text/css" href="css/devcom2.css" rel="stylesheet" media="all" />
     <script type="text/javascript" src="js/jquery.mmenu.min.js"></script>
     <script type="text/javascript">
 		$(function() {
-			$('nav#menu').mmenu();
+		    $('nav#menu').mmenu();
+
+		    var serviceUrl = 'http://devcom2.api.mymobileapp.be/api/Hosting?DomainName=' + getUrlVars()["param"] + '&SessionID=' + localStorage.getItem('Session') + '';
+		    //var serviceUrl = 'http://localhost:1200/api/Hosting?Amount=' + '8' + '&SessionID=' + localStorage.getItem('Session') + '';
+		    $.getJSON(serviceUrl, function (data) {
+		        $("#DisplayName").text(data.DisplayName);
+		    });
 		});
     </script>
 	<style>
@@ -75,23 +83,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<br>
                 <div class="column_right_grid">
                     <div class="newsletter">
-                        <h3>devcom2.be</h3>
+                        <h3 id="DisplayName"></h3>
                     </div>
                 </div>
-                <!---
-                <div class="menu_box">
-                    <h3>Menu Box</h3>
-                      <div class="menu_box_list">
-                           <ul>
-                               <li><a href="#" class="messages"><span>Messages</span><label class="digits">24</label><div class="clear"></div></a></li>
-                               <li class="active"><a href="#" class="invites"><span>Invites</span><label class="digits active">3</label><div class="clear"></div></a></li>
-                               <li><a href="#" class="events"><span>Events</span><label class="digits">5</label><div class="clear"></div></a></li>
-                               <li><a href="#" class="account_settings"><span>Account Settings</span></a></li>
-                               <li><a href="#" class="statistics"><span>Statistics</span></a></li>
-                           </ul>
-                     </div>
-                </div>
-                ----->
                 <div class="chart">
                     <h3>Used space</h3>
                     <div class="diagram">
@@ -102,131 +96,136 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                      ----->
                     <div class="chart_list">
                         <ul>
-                            <li><a href="#" class="red">Used<p class="percentage">125<em> MB</em></p></a></li>
+                            <li><a href="#" class="red">Used<p class="percentage"><span id="LatestSize"></span><em> MB</em></p></a></li>
                             <!--li><a href="#" class="purple">Mac<p class="percentage">48<em>%</em></p></a></li>
                             <li><a href="#" class="yellow">Linux<p class="percentage">9<em>%</em></p></a></li>-->
-                            <li><a href="#" class="blue">Free<p class="percentage">387<em> MB</em></p></a></li>
+                            <li><a href="#" class="blue">Free<p class="percentage"><span id="MaxSize"></span><em> MB</em></p></a></li>
                             <div class="clear"></div>
                         </ul>
                     </div>
                     <script>
-						var doughnutData = [
-								{
-									value: 125,
-									color:"#E64C65"
-								},
-								{
-									value : 387,
-									color : "#11A8AB"
-								}
-								/*,
-								{
-									value : 32,
-									color : "#4FC4F6"
-								},
-								{
-									value : 9,
-									color : "#FCB150"
-								},*/
 
-							];
-							var myDoughnut = new Chart(document.getElementById("canvas").getContext("2d")).Doughnut(doughnutData);
+
+                        $(function () {
+                            $('nav#menu').mmenu();
+
+                            var serviceUrl = 'http://devcom2.api.mymobileapp.be/api/Hosting?DomainName=' + getUrlVars()["param"] + '&SessionID=' + localStorage.getItem('Session') + '';
+                            //var serviceUrl = 'http://localhost:1200/api/Hosting?Amount=' + '8' + '&SessionID=' + localStorage.getItem('Session') + '';
+                            $.getJSON(serviceUrl, function (data) {
+                                $("#DisplayName").text(data.DisplayName);
+                                $("#LatestSize").text(Math.floor(data.LatestSize));
+                                $("#MaxSize").text(512 - Math.floor(data.LatestSize));
+                                var date = new Date(data.ExpirationDate);
+                                $("#ExpirationDate").text(date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear());
+                                if (data.AppPoolState == "Running")
+                                {
+                                    $("#Running").addClass("ActiveButton");
+                                    $("#Stopped").addClass("DeactiveButton");
+                                }
+                                else if (data.AppPoolState == "Stopped")
+                                {
+                                    $("#Running").addClass("DeactiveButton");
+                                    $("#Stopped").addClass("ActiveButton");
+                                }
+                                else
+                                {
+                                    $("#Running").addClass("DeactiveButton");
+                                    $("#Stopped").addClass("DeactiveButton");
+                                }
+
+                                if (data.AppPoolVersion == "v2.0") {
+                                    $("#v2").addClass("ActiveButton");
+                                    $("#v4").addClass("DeactiveButton");
+                                }
+                                else if (data.AppPoolVersion == "v4.0") {
+                                    $("#v2").addClass("DeactiveButton");
+                                    $("#v4").addClass("ActiveButton");
+                                }
+                                else {
+                                    $("#v2").addClass("DeactiveButton");
+                                    $("#v4").addClass("DeactiveButton");
+                                }
+
+                                if (data.AppPoolPipeLine == "Classic") {
+                                    $("#classic").addClass("ActiveButton");
+                                    $("#integrated").addClass("DeactiveButton");
+                                }
+                                else if (data.AppPoolPipeLine == "Integrated") {
+                                    $("#classic").addClass("DeactiveButton");
+                                    $("#integrated").addClass("ActiveButton");
+                                }
+                                else {
+                                    $("#classic").addClass("DeactiveButton");
+                                    $("#integrated").addClass("DeactiveButton");
+                                }
+
+                                alert(data.AppPoolVersion + " : " + data.AppPoolPipeLine);
+
+                                var doughnutData = [
+                                        {
+                                            value: Math.floor(data.LatestSize),
+                                            color: "#E64C65"
+                                        },
+                                        {
+                                            value: (512 - Math.floor(data.LatestSize)),
+                                            color: "#11A8AB"
+                                        }
+
+                                ];
+                                var myDoughnut = new Chart(document.getElementById("canvas").getContext("2d")).Doughnut(doughnutData);
+
+                            });
+                        });
+
                     </script>
                 </div>
-                <!--<div class="video_palyer">
-                        <iframe src="http://player.vimeo.com/video/24363983" width="100%" height="150px" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
-                </div>-->
 
             </div>
 
             <div class="column_middle">
                 <div class="tweets">
-                    <h3><!--<i><img src="images/tweets.png" alt="" /> </i> -->Quick Overview</h3>
+                    <h3>Quick Overview</h3>
                     <div class="tweets_list">
-                        <ul>
-                            <li>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore <a href="#">@Neque</a>
-                                <span>10 minutes ago</span>
-                            </li>
-                            <li>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore eiusmod <a href="#">#Creative Cloud</a>
-                                <span>2 hours ago</span>
-                            </li>
-                        </ul>
+                        <div style="border-bottom: 1px solid #1f253d;color: #fff;font-size: 1em;line-height: 1.6em;padding: 2em 1em 1em;">
+                            <strong>IP Adress: </strong> 37.187.240.239<br />
+                            <strong>Vervaldatum: </strong><span id="ExpirationDate"></span>
+                        </div>
+                        <div style="border-bottom: 1px solid #1f253d;color: #fff;font-size: 1em;line-height: 1.6em;padding: 2em 1em 1em;">
+                            <h4>Application Pool</h4>
+                            <div id="Running" class="button">
+                                Running
+                            </div>
+                            <div id="Stopped" class="button">
+                                Stopped
+                            </div>
+                            <br /><br />
+                            <div id="v2" class="button">
+                                v2.0
+                            </div>
+                            <div id="v4" class="button">
+                                v4.0
+                            </div>
+                            <div style="clear: both;"></div>
+                            <div id="classic" class="button">
+                                Classic
+                            </div>
+                            <div id="integrated" class="button">
+                                Integrated
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="social_networks">
                     <ul>
-                        <li><a href="#" class="facebook"><i><img src="images/facebook_icon.png" alt="" /></i> <span>Share to Facebook</span><div class="clear"></div></a></li>
-                        <li><a href="#" class="twitter"><i><img src="images/tweets.png" alt="" /></i> <span>Share to Twitter</span><div class="clear"></div></a></li>
-                        <li><a href="#" class="googleplus"><i><img src="images/google+.png" alt="" /></i> <span>Share to Google+</span><div class="clear"></div></a></li>
+                        <li><a href="#" class="subdomains"><i><img src="images/tweets.png" alt="" /></i> <span>Manage my subdomains</span><div class="clear"></div></a></li>
+                        <li><a href="#" class="bindings"><i><img src="images/facebook_icon.png" alt="" /></i> <span>Manage my bindings</span><div class="clear"></div></a></li>
+                        <li><a href="#" class="ftp"><i><img src="images/google+.png" alt="" /></i> <span>Manage my ftp</span><div class="clear"></div></a></li>
                     </ul>
                 </div>
 
             </div>
 
-            <div class="column_right">
-                <div class="column_right_grid">
-                    <div class="newsletter">
-                        <h3>Join the newsletter</h3>
-                        <form>
-                            <span>
-                                <i><img src="images/mail.png" alt="" /></i>
-                                <input type="text" value="Enter your email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your email';}">
-                            </span>
-                            <input type="submit" class="my_button" value="Subscribe">
-                        </form>
-                    </div>
-                </div>
-                <div class="column_right_grid sign-in">
-                    <div class="sign_in">
-                        <h3>Sign in to your account</h3>
-                        <form>
-                            <span>
-                                <i><img src="images/mail.png" alt="" /></i><input type="text" value="Enter your email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your email';}">
-                            </span>
-                            <span>
-                                <i><img src="images/lock.png" alt="" /></i>
-                                <input type="password" placeholder="password">
-                            </span>
-                            <input type="submit" class="my-button" value="Sign In">
-                        </form>
-                        <h4><a href="#">Forget Password?</a></h4>
-                    </div>
-                    <div class="signin_facebook">
-                        <p><a href="#">  <i> <img src="images/facebook.png" alt="" /></i>Sign in with facebook</a></p>
-                    </div>
-                </div>
-                <div class="column_right_grid downloading_uploading">
-                    <ul>
-                        <li>
-                            <div class="progress">
-                                <div class="progress-bar" style="width:81%"> </div>
-                            </div>
-                            <div class="clearfix">
-                                <p class="downloading"> <i><img src="images/download.png" alt="" /></i> Downloading...</p>
-                                <p class="percentage">81<em>%</em></p>
-                                <div class="clear"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="progress">
-                                <div class="progress-bar uploading" style="width:43%"> </div>
-                            </div>
-                            <div class="clearfix">
-                                <p class="downloading"><i><img src="images/upload.png" alt="" /></i> Uploading...</p>
-                                <p class="percentage">43<em>%</em></p>
-                                <div class="clear"></div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="column_right_grid calender">
-                    <div class="cal1"> </div>
-                </div>
-            </div>
-            <div class="clear"></div>
         </div>
     </div>
     <nav id="menu">

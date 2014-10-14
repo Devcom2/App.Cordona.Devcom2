@@ -1,0 +1,15 @@
+.button {
+height: 30px;
+width: 30%;
+float: left;
+text-align: center;
+cursor: pointer;
+}
+.ActiveButton {
+border: 2px solid #696161;
+background-color: #60c5dc;
+}
+.DeactiveButton {
+border: 2px solid #696161;
+background-color: #808080;
+}
