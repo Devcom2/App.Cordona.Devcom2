@@ -754,6 +754,7 @@ fieldset#body {
 	color:#FFF;
 	text-transform:uppercase;
 	padding:20px;
+    max-width: calc(100%-100px);
 }
 .social_networks li a.facebook{
 	background:#3468af;

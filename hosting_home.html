@@ -13,37 +13,36 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
         <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
         <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>
+        <script type="text/javascript" src="js/Chart.js"></script>
         <script type="text/javascript" src="js/jquery.easing.js"></script>
         <script type="text/javascript" src="js/jquery.ulslide.js"></script>
-        <!----Calender -------->
-        <link rel="stylesheet" href="css/clndr.css" type="text/css" />
-        <script src="js/underscore-min.js"></script>
-        <script src="js/moment-2.2.1.js"></script>
-        <script src="js/clndr.js"></script>
-        <script src="js/site.js"></script>
-        <!----End Calender -------->
+
         <link type="text/css" href="css/mmenu.css" rel="stylesheet" media="all" />
         <script type="text/javascript" src="js/jquery.mmenu.min.js"></script>
         <script type="text/javascript">
             var count = 8;
             var countitem = 1;
-		    $(function() {
-		        $('nav#menu').mmenu();
+            $(function () {
+                $('nav#menu').mmenu();
 
-		        showitem(count);
 
-               
+
                 var serviceUrl = 'http://devcom2.api.mymobileapp.be/api/Hosting?Amount=' + '8' + '&SessionID=' + localStorage.getItem('Session') + '';
+                //var serviceUrl = 'http://localhost:1200/api/Hosting?Amount=' + '8' + '&SessionID=' + localStorage.getItem('Session') + '';
                 $.getJSON(serviceUrl, function (data) {
                     var items = [];
 
-                    for (var i = 0; i < data.length; i++) {
-                        var object = '<li class="ListItem ' + (i + 1) + '"><a href="#" class="facebook"><i><img src="http://my.devcom2.be/Images/Icons/WHITE/Webhosting.png" alt="" /></i> <span>' + data[i].DisplayName + '</span><div class="clear"></div></a></li>';
-                        $('#social_networks').append(object);
-                    }
-                    showitem();
+                    setTimeout(function () {
+                        for (var i = 0; i < data.length; i++) {
+                            var object = '<li class="ListItem ' + (i + 1) + '"><a href="#" class="facebook"><i><img src="http://my.devcom2.be/Images/Icons/WHITE/Webhosting.png" alt="" /></i> <span>' + data[i].DisplayName + '</span><div class="clear"></div></a></li>';
+                            $('#social_networks').append(object);
+                        }
+                    });
                 });
-		    });
+
+                showitem();
+            });
 
 		    function showitem()
 		    {

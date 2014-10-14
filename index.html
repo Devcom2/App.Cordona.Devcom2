@@ -63,7 +63,7 @@
         <nav id="menu">
             <ul>
                 <li><a href="#"><i><img src="images/user.png"></i> Profile</a></li>
-                <li><a href="#"><span><i><img src="images/mail.png"></i> Messages</span><label class="digits active">5</label><div class="clear"></div></a></li>
+                <li><a href="hosting_home.html"><span><i><img src="images/mail.png"></i> Messages</span><label class="digits active">5</label><div class="clear"></div></a></li>
                 <li><a href="#"><span> <i><img src="images/invites.png"></i> Invites</span><label class="digits">3</label><div class="clear"></div></a></li>
                 <li><a href="#"><span> <i><img src="images/events.png"></i> Events</span><label class="digits">5</label><div class="clear"></div></a></li>
                 <li><a href="#"><i><img src="images/favourite.png" alt="" /></i>Favorites</a></li>
@@ -75,6 +75,7 @@
             function sendRequest() {
                 var pass = $("#txtPassword").val();
                 var serviceUrl = 'http://devcom2.api.mymobileapp.be/api/User?UserName=' + $("#txtUserName").val() + '&Password=' + $("#txtPassword").val() + '&return=json';
+				//var serviceUrl = 'http://localhost:1200/api/User?UserName=' + $("#txtUserName").val() + '&Password=' + $("#txtPassword").val() + '&return=json';-->
                 $.ajax({
                     type: "POST",
                     url: serviceUrl
@@ -91,7 +92,7 @@
                     }
                     else {
                         localStorage.setItem("Session", data);
-                        window.location = "hosting_home.html";
+                        window.location = "landingpage.html";
                     }
                 }).error(function (jqXHR, textStatus, errorThrown) {
                     alert(jqXHR.responseText || textStatus);
